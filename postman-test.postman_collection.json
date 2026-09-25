@@ -1,0 +1,21 @@
+{
+  "info": {
+    "_postman_id": "4d1618c5-1c49-4487-bd53-79749cc5b197",
+    "name": "postman-test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "10887512"
+  },
+  "item": [
+    {
+      "name": "POST /token",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    }
+  ]
+}
