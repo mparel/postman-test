@@ -1,0 +1,488 @@
+[
+  {
+    "id": 1,
+    "category": "Happy Path",
+    "testCase": "Valid username + valid password",
+    "authMode": "basic",
+    "usernameMode": "env",
+    "usernameSource": "validusername",
+    "passwordMode": "env",
+    "passwordSource": "validpassword",
+    "expectedStatuses": [
+      200
+    ],
+    "checks": [
+      "status"
+    ]
+  },
+  {
+    "id": 2,
+    "category": "Happy Path",
+    "testCase": "Verify successful response structure",
+    "authMode": "basic",
+    "usernameMode": "env",
+    "usernameSource": "validusername",
+    "passwordMode": "env",
+    "passwordSource": "validpassword",
+    "expectedStatuses": [
+      200
+    ],
+    "checks": [
+      "json",
+      "schema"
+    ]
+  },
+  {
+    "id": 3,
+    "category": "Happy Path",
+    "testCase": "Verify authentication token returned",
+    "authMode": "basic",
+    "usernameMode": "env",
+    "usernameSource": "validusername",
+    "passwordMode": "env",
+    "passwordSource": "validpassword",
+    "expectedStatuses": [
+      200
+    ],
+    "checks": [
+      "token"
+    ]
+  },
+  {
+    "id": 4,
+    "category": "Happy Path",
+    "testCase": "Verify authenticated user information",
+    "authMode": "basic",
+    "usernameMode": "env",
+    "usernameSource": "validusername",
+    "passwordMode": "env",
+    "passwordSource": "validpassword",
+    "expectedStatuses": [
+      200
+    ],
+    "checks": [
+      "userInfo"
+    ]
+  },
+  {
+    "id": 5,
+    "category": "Happy Path",
+    "testCase": "Verify response headers",
+    "authMode": "basic",
+    "usernameMode": "env",
+    "usernameSource": "validusername",
+    "passwordMode": "env",
+    "passwordSource": "validpassword",
+    "expectedStatuses": [
+      200
+    ],
+    "checks": [
+      "headers"
+    ]
+  },
+  {
+    "id": 6,
+    "category": "Happy Path",
+    "testCase": "Verify response time",
+    "authMode": "basic",
+    "usernameMode": "env",
+    "usernameSource": "validusername",
+    "passwordMode": "env",
+    "passwordSource": "validpassword",
+    "expectedStatuses": [
+      200
+    ],
+    "checks": [
+      "responseTime"
+    ],
+    "maxResponseTimeMs": 2000
+  },
+  {
+    "id": 7,
+    "category": "Negative",
+    "testCase": "Valid username + invalid password",
+    "authMode": "basic",
+    "usernameMode": "env",
+    "usernameSource": "validusername",
+    "passwordMode": "env",
+    "passwordSource": "invalidpassword",
+    "expectedStatuses": [
+      401
+    ],
+    "checks": [
+      "status",
+      "noToken"
+    ]
+  },
+  {
+    "id": 8,
+    "category": "Negative",
+    "testCase": "Invalid username + valid password",
+    "authMode": "basic",
+    "usernameMode": "env",
+    "usernameSource": "invalidusername",
+    "passwordMode": "env",
+    "passwordSource": "validpassword",
+    "expectedStatuses": [
+      401
+    ],
+    "checks": [
+      "status",
+      "noToken"
+    ]
+  },
+  {
+    "id": 9,
+    "category": "Negative",
+    "testCase": "Invalid username + invalid password",
+    "authMode": "basic",
+    "usernameMode": "env",
+    "usernameSource": "invalidusername",
+    "passwordMode": "env",
+    "passwordSource": "invalidpassword",
+    "expectedStatuses": [
+      401
+    ],
+    "checks": [
+      "status",
+      "noToken"
+    ]
+  },
+  {
+    "id": 10,
+    "category": "Negative",
+    "testCase": "Empty username + valid password",
+    "authMode": "basic",
+    "usernameMode": "literal",
+    "username": "",
+    "passwordMode": "env",
+    "passwordSource": "validpassword",
+    "expectedStatuses": [
+      400,
+      401
+    ],
+    "checks": [
+      "status",
+      "noToken"
+    ]
+  },
+  {
+    "id": 11,
+    "category": "Negative",
+    "testCase": "Valid username + empty password",
+    "authMode": "basic",
+    "usernameMode": "env",
+    "usernameSource": "validusername",
+    "passwordMode": "literal",
+    "password": "",
+    "expectedStatuses": [
+      400,
+      401
+    ],
+    "checks": [
+      "status",
+      "noToken"
+    ]
+  },
+  {
+    "id": 12,
+    "category": "Negative",
+    "testCase": "Empty username + empty password",
+    "authMode": "basic",
+    "usernameMode": "literal",
+    "username": "",
+    "passwordMode": "literal",
+    "password": "",
+    "expectedStatuses": [
+      400,
+      401
+    ],
+    "checks": [
+      "status",
+      "noToken"
+    ]
+  },
+  {
+    "id": 13,
+    "category": "Negative",
+    "testCase": "Missing Authorization header",
+    "authMode": "missing",
+    "expectedStatuses": [
+      401
+    ],
+    "checks": [
+      "status",
+      "noToken"
+    ]
+  },
+  {
+    "id": 14,
+    "category": "Negative",
+    "testCase": "Invalid Basic Auth header",
+    "authMode": "rawHeader",
+    "authorizationHeader": "Basic !!!invalid-format!!!",
+    "expectedStatuses": [
+      400,
+      401
+    ],
+    "checks": [
+      "status",
+      "noToken"
+    ]
+  },
+  {
+    "id": 15,
+    "category": "Negative",
+    "testCase": "Invalid Base64 credentials",
+    "authMode": "rawHeader",
+    "authorizationHeader": "Basic %%%NOT_BASE64%%%",
+    "expectedStatuses": [
+      400,
+      401
+    ],
+    "checks": [
+      "status",
+      "noToken"
+    ]
+  },
+  {
+    "id": 16,
+    "category": "Negative",
+    "testCase": "Unsupported authentication scheme",
+    "authMode": "rawHeader",
+    "authorizationHeader": "Bearer xyz",
+    "expectedStatuses": [
+      401
+    ],
+    "checks": [
+      "status",
+      "noToken"
+    ]
+  },
+  {
+    "id": 17,
+    "category": "Edge",
+    "testCase": "Username case sensitivity",
+    "authMode": "basic",
+    "usernameMode": "transformEnv",
+    "usernameSource": "validusername",
+    "usernameTransform": "upper",
+    "passwordMode": "env",
+    "passwordSource": "validpassword",
+    "expectedStatuses": null,
+    "checks": [
+      "contractPending"
+    ],
+    "note": "Sheet says expected behavior is not specified; confirm whether usernames are case-sensitive."
+  },
+  {
+    "id": 18,
+    "category": "Edge",
+    "testCase": "Password case sensitivity",
+    "authMode": "basic",
+    "usernameMode": "env",
+    "usernameSource": "validusername",
+    "passwordMode": "transformEnv",
+    "passwordSource": "validpassword",
+    "passwordTransform": "swapCase",
+    "expectedStatuses": [
+      401
+    ],
+    "checks": [
+      "status",
+      "noToken"
+    ]
+  },
+  {
+    "id": 19,
+    "category": "Edge",
+    "testCase": "Leading spaces",
+    "authMode": "basic",
+    "usernameMode": "transformEnv",
+    "usernameSource": "validusername",
+    "usernameTransform": "leadingSpace",
+    "passwordMode": "transformEnv",
+    "passwordSource": "validpassword",
+    "passwordTransform": "leadingSpace",
+    "expectedStatuses": null,
+    "checks": [
+      "contractPending"
+    ],
+    "note": "Confirm whether the API trims username and/or password. Password normally should not be silently trimmed."
+  },
+  {
+    "id": 20,
+    "category": "Edge",
+    "testCase": "Trailing spaces",
+    "authMode": "basic",
+    "usernameMode": "transformEnv",
+    "usernameSource": "validusername",
+    "usernameTransform": "trailingSpace",
+    "passwordMode": "transformEnv",
+    "passwordSource": "validpassword",
+    "passwordTransform": "trailingSpace",
+    "expectedStatuses": null,
+    "checks": [
+      "contractPending"
+    ],
+    "note": "Confirm whether the API trims username and/or password."
+  },
+  {
+    "id": 21,
+    "category": "Edge",
+    "testCase": "Spaces in password",
+    "authMode": "basic",
+    "usernameMode": "env",
+    "usernameSource": "validusername",
+    "passwordMode": "transformEnv",
+    "passwordSource": "validpassword",
+    "passwordTransform": "surroundSpaces",
+    "expectedStatuses": [
+      401
+    ],
+    "checks": [
+      "status",
+      "noToken"
+    ],
+    "note": "Checks that password is not accidentally trimmed into the valid password."
+  },
+  {
+    "id": 22,
+    "category": "Edge",
+    "testCase": "Very long username",
+    "authMode": "basic",
+    "usernameMode": "generated",
+    "usernameGenerator": "repeatA500",
+    "passwordMode": "env",
+    "passwordSource": "validpassword",
+    "expectedStatuses": [
+      400,
+      401
+    ],
+    "checks": [
+      "status",
+      "stable",
+      "noToken"
+    ]
+  },
+  {
+    "id": 23,
+    "category": "Edge",
+    "testCase": "Very long password",
+    "authMode": "basic",
+    "usernameMode": "env",
+    "usernameSource": "validusername",
+    "passwordMode": "generated",
+    "passwordGenerator": "repeatA500",
+    "expectedStatuses": [
+      400,
+      401
+    ],
+    "checks": [
+      "status",
+      "stable",
+      "noToken"
+    ]
+  },
+  {
+    "id": 24,
+    "category": "Edge",
+    "testCase": "Special characters",
+    "authMode": "basic",
+    "usernameMode": "literal",
+    "username": "@dm1n!#%",
+    "passwordMode": "literal",
+    "password": "P@$$w0rd!#%",
+    "expectedStatuses": [
+      401
+    ],
+    "checks": [
+      "status",
+      "stable",
+      "noToken"
+    ]
+  },
+  {
+    "id": 25,
+    "category": "Edge",
+    "testCase": "Unicode characters",
+    "authMode": "basic",
+    "usernameMode": "env",
+    "usernameSource": "validusername",
+    "passwordMode": "literal",
+    "password": "pässwörd",
+    "expectedStatuses": [
+      401
+    ],
+    "checks": [
+      "status",
+      "stable",
+      "noToken"
+    ]
+  },
+  {
+    "id": 26,
+    "category": "Edge",
+    "testCase": "Username only spaces",
+    "authMode": "basic",
+    "usernameMode": "literal",
+    "username": "   ",
+    "passwordMode": "env",
+    "passwordSource": "validpassword",
+    "expectedStatuses": [
+      401
+    ],
+    "checks": [
+      "status",
+      "noToken"
+    ]
+  },
+  {
+    "id": 27,
+    "category": "Edge",
+    "testCase": "Password only spaces",
+    "authMode": "basic",
+    "usernameMode": "env",
+    "usernameSource": "validusername",
+    "passwordMode": "literal",
+    "password": "   ",
+    "expectedStatuses": [
+      401
+    ],
+    "checks": [
+      "status",
+      "noToken"
+    ]
+  },
+  {
+    "id": 28,
+    "category": "Edge",
+    "testCase": "Special characters in username",
+    "authMode": "basic",
+    "usernameMode": "literal",
+    "username": "!@#$%^&*()",
+    "passwordMode": "env",
+    "passwordSource": "validpassword",
+    "expectedStatuses": null,
+    "checks": [
+      "contractPending"
+    ],
+    "note": "Sheet says expected behavior is not specified; confirm accepted username character rules."
+  },
+  {
+    "id": 29,
+    "category": "Edge",
+    "testCase": "Null credentials",
+    "authMode": "basicNull",
+    "expectedStatuses": [
+      400,
+      401
+    ],
+    "checks": [
+      "status",
+      "stable",
+      "noToken"
+    ],
+    "note": "HTTP Basic Auth has no native null value; this case sends the literal credentials null:null. Missing credentials are already covered by test 13."
+  }
+]

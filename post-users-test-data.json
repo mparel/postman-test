@@ -1,0 +1,106 @@
+[
+  {
+    "testCaseId": "TC01",
+    "scenario": "Create user with all valid required fields",
+    "category": "Happy-path",
+    "bodyType": "valid",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "nickName": "John",
+    "expectedStatus": 201,
+    "validationType": "createdUser"
+  },
+  {
+    "testCaseId": "TC02",
+    "scenario": "Verify created user can subsequently be retrieved",
+    "category": "Happy-path",
+    "bodyType": "valid",
+    "name": "Jane Doe",
+    "email": "jane@example.com",
+    "nickName": "Jane",
+    "expectedStatus": 201,
+    "validationType": "persistedUser"
+  },
+  {
+    "testCaseId": "TC03",
+    "scenario": "Create user without a required field",
+    "category": "Negative",
+    "bodyType": "missingRequiredField",
+    "name": "Missing Email",
+    "email": null,
+    "nickName": "Missing",
+    "expectedStatus": 400,
+    "validationType": "validationError"
+  },
+  {
+    "testCaseId": "TC04",
+    "scenario": "Create user with invalid email format",
+    "category": "Negative",
+    "bodyType": "invalidEmail",
+    "name": "Invalid Email",
+    "email": "invalid-email",
+    "nickName": "Invalid",
+    "expectedStatus": 400,
+    "validationType": "validationError"
+  },
+  {
+    "testCaseId": "TC05",
+    "scenario": "Create user using an email that must be unique and already exists",
+    "category": "Negative",
+    "bodyType": "duplicate",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "nickName": "John",
+    "expectedStatus": 409,
+    "validationType": "duplicate"
+  },
+  {
+    "testCaseId": "TC06",
+    "scenario": "Send malformed JSON body",
+    "category": "Negative",
+    "bodyType": "malformed",
+    "expectedStatus": 400,
+    "validationType": "badRequest"
+  },
+  {
+    "testCaseId": "TC07",
+    "scenario": "Send empty request body",
+    "category": "Negative",
+    "bodyType": "empty",
+    "expectedStatus": 400,
+    "validationType": "validationError"
+  },
+  {
+    "testCaseId": "TC08",
+    "scenario": "Submit values at maximum allowed field lengths",
+    "category": "Edge",
+    "bodyType": "valid",
+    "name": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+    "email": "max.length.user@example.com",
+    "nickName": "KKKKKKKKKKKKKKKKKKKK",
+    "expectedStatus": 201,
+    "validationType": "createdUser"
+  },
+  {
+    "testCaseId": "TC09",
+    "scenario": "Submit values exceeding maximum field lengths",
+    "category": "Edge",
+    "bodyType": "valid",
+    "name": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+    "email": "too.long.user@example.com",
+    "nickName": "KKKKKKKKKKKKKKKKKKKKK",
+    "expectedStatus": 400,
+    "validationType": "validationError"
+  },
+  {
+    "testCaseId": "TC10",
+    "scenario": "Submit special/Unicode characters in supported text fields",
+    "category": "Edge",
+    "bodyType": "valid",
+    "name": "José 山田",
+    "email": "unicode.user@example.com",
+    "nickName": "José山田",
+    "expectedStatus": 201,
+    "validationType": "createdUser"
+  }
+]
