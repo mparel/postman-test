@@ -233,19 +233,7 @@
       ],
       "request": {
         "auth": {
-          "type": "basic",
-          "basic": [
-            {
-              "key": "username",
-              "value": "{{validusername}}",
-              "type": "string"
-            },
-            {
-              "key": "password",
-              "value": "{{validpassword}}",
-              "type": "string"
-            }
-          ]
+          "type": "noauth"
         },
         "method": "POST",
         "header": [],
