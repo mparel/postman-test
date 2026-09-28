@@ -273,7 +273,7 @@
     "checks": [
       "contractPending"
     ],
-    "note": "Sheet says expected behavior is not specified; confirm whether usernames are case-sensitive."
+    "note": "expected behavior is not specified; confirm whether usernames are case-sensitive."
   },
   {
     "id": 18,
@@ -467,7 +467,7 @@
     "checks": [
       "contractPending"
     ],
-    "note": "Sheet says expected behavior is not specified; confirm accepted username character rules."
+    "note": "expected behavior is not specified; confirm accepted username character rules."
   },
   {
     "id": 29,
