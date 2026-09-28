@@ -1,0 +1,106 @@
+[
+  {
+    "testCaseId": "TC01",
+    "scenario": "Delete an existing user",
+    "category": "Happy-path",
+    "userId": 1,
+    "tokenType": "valid",
+    "requestType": "delete",
+    "expectedStatus": 200,
+    "alternativeExpectedStatus": 204,
+    "validationType": "successfulDelete"
+  },
+  {
+    "testCaseId": "TC02",
+    "scenario": "Verify deleted user can no longer be retrieved",
+    "category": "Happy-path",
+    "userId": 1,
+    "tokenType": "valid",
+    "requestType": "deleteAndVerify",
+    "expectedStatus": 200,
+    "alternativeExpectedStatus": 204,
+    "validationType": "verifyDeletion"
+  },
+  {
+    "testCaseId": "TC03",
+    "scenario": "Delete non-existing user",
+    "category": "Happy-path (per supplied sheet)",
+    "userId": 999999,
+    "tokenType": "valid",
+    "requestType": "delete",
+    "expectedStatus": 404,
+    "validationType": "notFound"
+  },
+  {
+    "testCaseId": "TC04",
+    "scenario": "Delete using invalid ID format",
+    "category": "Happy-path (per supplied sheet)",
+    "userId": "abc",
+    "tokenType": "valid",
+    "requestType": "delete",
+    "expectedStatus": 400,
+    "validationType": "badRequest"
+  },
+  {
+    "testCaseId": "TC05",
+    "scenario": "Delete without authentication",
+    "category": "Happy-path (per supplied sheet)",
+    "userId": 1,
+    "tokenType": "none",
+    "requestType": "delete",
+    "expectedStatus": 401,
+    "validationType": "unauthorized"
+  },
+  {
+    "testCaseId": "TC06",
+    "scenario": "Verify response Content-Type",
+    "category": "Happy-path (per supplied sheet)",
+    "userId": 1,
+    "tokenType": "valid",
+    "requestType": "delete",
+    "expectedStatus": 200,
+    "alternativeExpectedStatus": 204,
+    "validationType": "contentType"
+  },
+  {
+    "testCaseId": "TC07",
+    "scenario": "Delete same user twice",
+    "category": "Negative",
+    "userId": 2,
+    "tokenType": "valid",
+    "requestType": "deleteTwice",
+    "expectedStatus": 404,
+    "validationType": "secondDelete"
+  },
+  {
+    "testCaseId": "TC08",
+    "scenario": "Authenticated user without sufficient permission accesses endpoint",
+    "category": "Negative",
+    "userId": 3,
+    "tokenType": "insufficientPermission",
+    "requestType": "delete",
+    "expectedStatus": 403,
+    "validationType": "forbidden"
+  },
+  {
+    "testCaseId": "TC09",
+    "scenario": "Send unsupported HTTP method",
+    "category": "Negative",
+    "userId": 3,
+    "tokenType": "valid",
+    "requestType": "unsupportedMethod",
+    "expectedStatus": 405,
+    "validationType": "methodNotAllowed"
+  },
+  {
+    "testCaseId": "TC10",
+    "scenario": "Verify API does not expose sensitive user data",
+    "category": "Edge",
+    "userId": 3,
+    "tokenType": "valid",
+    "requestType": "delete",
+    "expectedStatus": 200,
+    "alternativeExpectedStatus": 204,
+    "validationType": "noSensitiveData"
+  }
+]

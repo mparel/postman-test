@@ -1,0 +1,71 @@
+[
+  {
+    "testCaseId": "TC01",
+    "scenario": "Retrieve an existing user with valid userId",
+    "category": "Happy-path",
+    "userId": 1,
+    "tokenType": "valid",
+    "expectedStatus": 200,
+    "validationType": "userDetails",
+    "expectedId": 1,
+    "expectedName": "John Doe",
+    "expectedEmail": "john@example.com",
+    "expectedNickName": "John"
+  },
+  {
+    "testCaseId": "TC02",
+    "scenario": "Verify returned userId matches requested ID",
+    "category": "Happy-path",
+    "userId": 1,
+    "tokenType": "valid",
+    "expectedStatus": 200,
+    "validationType": "matchingUserId"
+  },
+  {
+    "testCaseId": "TC03",
+    "scenario": "Retrieve non-existing user",
+    "category": "Negative",
+    "userId": 999999,
+    "tokenType": "valid",
+    "expectedStatus": 404,
+    "validationType": "notFound"
+  },
+  {
+    "testCaseId": "TC04",
+    "scenario": "Use invalid ID format such as letters when numeric ID is expected",
+    "category": "Negative",
+    "userId": "abc",
+    "tokenType": "valid",
+    "expectedStatus": 404,
+    "validationType": "badRequest"
+  },
+  {
+    "testCaseId": "TC05",
+    "scenario": "Request without authentication",
+    "category": "Negative",
+    "userId": 1,
+    "tokenType": "none",
+    "expectedStatus": 401,
+    "validationType": "unauthorized"
+  },
+  {
+    "testCaseId": "TC06-A",
+    "scenario": "Use boundary ID 0",
+    "category": "Edge",
+    "userId": 0,
+    "tokenType": "valid",
+    "expectedStatus": 400,
+    "alternativeExpectedStatus": 404,
+    "validationType": "boundaryId"
+  },
+  {
+    "testCaseId": "TC06-B",
+    "scenario": "Use negative user ID",
+    "category": "Edge",
+    "userId": -1,
+    "tokenType": "valid",
+    "expectedStatus": 400,
+    "alternativeExpectedStatus": 404,
+    "validationType": "boundaryId"
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "testCaseId": "TC01",
+    "scenario": "Update an existing user with valid data",
+    "category": "Happy-path",
+    "bodyType": "valid",
+    "id": 1,
+    "name": "John Doe Updated",
+    "email": "john.updated@example.com",
+    "nickName": "Johnny",
+    "expectedStatus": 200,
+    "alternativeExpectedStatus": 204,
+    "validationType": "successfulUpdate"
+  },
+  {
+    "testCaseId": "TC02",
+    "scenario": "Verify updated values using subsequent GET",
+    "category": "Happy-path",
+    "bodyType": "valid",
+    "id": 1,
+    "name": "John Doe Updated",
+    "email": "john.updated@example.com",
+    "nickName": "Johnny",
+    "expectedStatus": 200,
+    "alternativeExpectedStatus": 204,
+    "validationType": "persistedUpdate"
+  },
+  {
+    "testCaseId": "TC03",
+    "scenario": "Update a non-existing user",
+    "category": "Negative",
+    "bodyType": "valid",
+    "id": 999999,
+    "name": "Unknown User",
+    "email": "unknown@example.com",
+    "nickName": "Unknown",
+    "expectedStatus": 404,
+    "validationType": "notFound"
+  },
+  {
+    "testCaseId": "TC04",
+    "scenario": "Update with invalid field value such as malformed email",
+    "category": "Negative",
+    "bodyType": "invalidEmail",
+    "id": 1,
+    "name": "John Doe",
+    "email": "invalid-email",
+    "nickName": "John",
+    "expectedStatus": 400,
+    "validationType": "validationError"
+  },
+  {
+    "testCaseId": "TC05",
+    "scenario": "Update without required user identifier",
+    "category": "Negative",
+    "bodyType": "missingIdentifier",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "nickName": "John",
+    "expectedStatus": 400,
+    "validationType": "validationError"
+  },
+  {
+    "testCaseId": "TC06",
+    "scenario": "Send malformed JSON",
+    "category": "Negative",
+    "bodyType": "malformed",
+    "expectedStatus": 400,
+    "validationType": "badRequest"
+  },
+  {
+    "testCaseId": "TC07",
+    "scenario": "Update with empty body",
+    "category": "Edge",
+    "bodyType": "empty",
+    "expectedStatus": 400,
+    "validationType": "validationError"
+  },
+  {
+    "testCaseId": "TC08",
+    "scenario": "Update field to maximum allowed length",
+    "category": "Edge",
+    "bodyType": "valid",
+    "id": 1,
+    "name": "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+    "email": "john.max@example.com",
+    "nickName": "KKKKKKKKKKKKKKKKKKKK",
+    "expectedStatus": 200,
+    "alternativeExpectedStatus": 204,
+    "validationType": "successfulUpdate"
+  }
+]

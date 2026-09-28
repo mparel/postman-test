@@ -1,0 +1,60 @@
+[
+  {
+    "testCaseId": "TC01",
+    "scenario": "Retrieve users with valid authentication",
+    "category": "Happy-path",
+    "tokenType": "valid",
+    "queryString": "",
+    "expectedStatus": 200,
+    "expectedResponseType": "usersList",
+    "expectedId": 1,
+    "expectedName": "John Doe",
+    "expectedEmail": "john@example.com",
+    "expectedNickName": "John"
+  },
+  {
+    "testCaseId": "TC02",
+    "scenario": "Verify user objects contain required fields",
+    "category": "Happy-path",
+    "tokenType": "valid",
+    "queryString": "",
+    "expectedStatus": 200,
+    "expectedResponseType": "requiredFields"
+  },
+  {
+    "testCaseId": "TC03",
+    "scenario": "Request without authentication token",
+    "category": "Negative",
+    "tokenType": "none",
+    "queryString": "",
+    "expectedStatus": 401,
+    "expectedResponseType": "unauthorized"
+  },
+  {
+    "testCaseId": "TC04",
+    "scenario": "Request with invalid/expired token",
+    "category": "Negative",
+    "tokenType": "invalid",
+    "queryString": "",
+    "expectedStatus": 401,
+    "expectedResponseType": "unauthorized"
+  },
+  {
+    "testCaseId": "TC05",
+    "scenario": "Unsupported query parameter/value",
+    "category": "Edge",
+    "tokenType": "valid",
+    "queryString": "?unsupportedParam=unsupportedValue",
+    "expectedStatus": 200,
+    "expectedResponseType": "noServerError"
+  },
+  {
+    "testCaseId": "TC06",
+    "scenario": "Retrieve users when no users exist",
+    "category": "Edge",
+    "tokenType": "valid",
+    "queryString": "",
+    "expectedStatus": 200,
+    "expectedResponseType": "emptyList"
+  }
+]
