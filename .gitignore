@@ -1,0 +1,16 @@
+# Node dependencies
+node_modules/
+
+# Generated Newman runtime environment
+environment/runtime.postman_environment.json
+
+# Local secrets
+.env
+.env.*
+
+# Reports
+newman/
+reports/
+
+# macOS
+.DS_Store
