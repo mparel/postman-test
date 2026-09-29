@@ -72,10 +72,25 @@ run_get_users() {
 run_post_users() {
     setup_auth
 
-    newman run "$COLLECTION" \
+    npx newman run "$COLLECTION" \
         -e "$RUNTIME_ENV" \
         -d "test-data/post-users-test-data.json" \
-        --folder "03 - POST Users"
+        --folder "03 - POST Users" \
+        --export-environment "$RUNTIME_ENV"
+
+    if [ $? -ne 0 ]; then
+        echo "POST Users suite failed."
+        return 1
+    fi
+
+    echo ""
+    echo "======================================"
+    echo " Verifying created user"
+    echo "======================================"
+
+    npx newman run "$COLLECTION" \
+        -e "$RUNTIME_ENV" \
+        --folder "GET - Verify POST User"
 }
 
 # -------------------------------
@@ -84,10 +99,25 @@ run_post_users() {
 run_put_users() {
     setup_auth
 
-    newman run "$COLLECTION" \
+    npx newman run "$COLLECTION" \
         -e "$RUNTIME_ENV" \
         -d "test-data/put-users-test-data.json" \
-        --folder "04 - PUT Users"
+        --folder "04 - PUT Users" \
+        --export-environment "$RUNTIME_ENV"
+
+    if [ $? -ne 0 ]; then
+        echo "PUT Users suite failed."
+        return 1
+    fi
+
+    echo ""
+    echo "======================================"
+    echo " Verifying updated user"
+    echo "======================================"
+
+    npx newman run "$COLLECTION" \
+        -e "$RUNTIME_ENV" \
+        --folder "GET - Verify PUT User"
 }
 
 # -------------------------------
@@ -108,10 +138,25 @@ run_get_user_by_id() {
 run_delete_users() {
     setup_auth
 
-    newman run "$COLLECTION" \
+    npx newman run "$COLLECTION" \
         -e "$RUNTIME_ENV" \
         -d "test-data/delete-users-by-id-test-data.json" \
-        --folder "06 - DELETE User"
+        --folder "06 - DELETE User" \
+        --export-environment "$RUNTIME_ENV"
+
+    if [ $? -ne 0 ]; then
+        echo "DELETE Users suite failed."
+        return 1
+    fi
+
+    echo ""
+    echo "======================================"
+    echo " Verifying deleted user"
+    echo "======================================"
+
+    npx newman run "$COLLECTION" \
+        -e "$RUNTIME_ENV" \
+        --folder "GET - Verify DELETE User"
 }
 
 # -------------------------------

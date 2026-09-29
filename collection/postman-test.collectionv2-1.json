@@ -755,22 +755,22 @@
                   "            pm.expect(jsonData.id).to.not.be.null;",
                   "        });",
                   "",
-                  "        pm.collectionVariables.set(",
+                  "        pm.environment.set(",
                   "            \"createdUserId\",",
                   "            jsonData.id",
                   "        );",
                   "",
-                  "        pm.collectionVariables.set(",
+                  "        pm.environment.set(",
                   "            \"createdUserName\",",
                   "            pm.iterationData.get(\"name\")",
                   "        );",
                   "",
-                  "        pm.collectionVariables.set(",
+                  "        pm.environment.set(",
                   "            \"createdUserEmail\",",
                   "            pm.iterationData.get(\"email\")",
                   "        );",
                   "",
-                  "        pm.collectionVariables.set(",
+                  "        pm.environment.set(",
                   "            \"createdUserNickName\",",
                   "            pm.iterationData.get(\"nickName\")",
                   "        );",
@@ -1060,22 +1060,19 @@
                   "",
                   "else if (validationType === \"persistedUpdate\") {",
                   "",
-                  "    pm.collectionVariables.set(",
-                  "        \"updatedUserId\",",
-                  "        pm.iterationData.get(\"id\")",
-                  "    );",
+                  "    pm.environment.set(\"updatedUserId\", jsonData.id);",
                   "",
-                  "    pm.collectionVariables.set(",
+                  "    pm.environment.set(",
                   "        \"updatedUserName\",",
                   "        pm.iterationData.get(\"name\")",
                   "    );",
                   "",
-                  "    pm.collectionVariables.set(",
+                  "    pm.environment.set(",
                   "        \"updatedUserEmail\",",
                   "        pm.iterationData.get(\"email\")",
                   "    );",
                   "",
-                  "    pm.collectionVariables.set(",
+                  "    pm.environment.set(",
                   "        \"updatedUserNickName\",",
                   "        pm.iterationData.get(\"nickName\")",
                   "    );",
@@ -1527,9 +1524,9 @@
                   "    );",
                   "",
                   "    // Store deleted ID for subsequent GET",
-                  "    pm.collectionVariables.set(",
+                  "    pm.environment.set(",
                   "        \"deletedUserId\",",
-                  "        userId",
+                  "        pm.iterationData.get(\"userId\")",
                   "    );",
                   "}",
                   "",
@@ -1744,171 +1741,186 @@
       "name": "07 - Verification Workflows",
       "item": [
         {
-          "name": "GET for POST/Users",
-          "event": [
+          "name": "07.1 - Verify POST",
+          "item": [
             {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "const expectedId = pm.collectionVariables.get(\"createdUserId\");",
-                  "const expectedName = pm.collectionVariables.get(\"createdUserName\");",
-                  "const expectedEmail = pm.collectionVariables.get(\"createdUserEmail\");",
-                  "const expectedNickName = pm.collectionVariables.get(\"createdUserNickName\");",
-                  "",
-                  "pm.test(\"Created user can be retrieved\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Retrieved user matches the created user\", function () {",
-                  "    const jsonData = pm.response.json();",
-                  "",
-                  "    pm.expect(String(jsonData.id)).to.eql(String(expectedId));",
-                  "    pm.expect(jsonData.name).to.eql(expectedName);",
-                  "    pm.expect(jsonData.email).to.eql(expectedEmail);",
-                  "    pm.expect(jsonData.nickName).to.eql(expectedNickName);",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+              "name": "GET - Verify POST User",
+              "event": [
                 {
-                  "key": "token",
-                  "value": "{{accessToken}}",
-                  "type": "string"
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const expectedId = pm.collectionVariables.get(\"createdUserId\");",
+                      "const expectedName = pm.collectionVariables.get(\"createdUserName\");",
+                      "const expectedEmail = pm.collectionVariables.get(\"createdUserEmail\");",
+                      "const expectedNickName = pm.collectionVariables.get(\"createdUserNickName\");",
+                      "",
+                      "pm.test(\"Created user can be retrieved\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "",
+                      "pm.test(\"Retrieved user matches the created user\", function () {",
+                      "    const jsonData = pm.response.json();",
+                      "",
+                      "    pm.expect(String(jsonData.id)).to.eql(String(expectedId));",
+                      "    pm.expect(jsonData.name).to.eql(expectedName);",
+                      "    pm.expect(jsonData.email).to.eql(expectedEmail);",
+                      "    pm.expect(jsonData.nickName).to.eql(expectedNickName);",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
                 }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{api-test}}/users/{{createdUserId}}",
-              "host": [
-                "{{api-test}}"
               ],
-              "path": [
-                "users",
-                "{{createdUserId}}"
-              ]
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{api-test}}/users/{{createdUserId}}",
+                  "host": [
+                    "{{api-test}}"
+                  ],
+                  "path": [
+                    "users",
+                    "{{createdUserId}}"
+                  ]
+                }
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
         },
         {
-          "name": "GET for PUT method",
-          "event": [
+          "name": "07.2 - Verify PUT",
+          "item": [
             {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "const expectedId = pm.collectionVariables.get(\"updatedUserId\");",
-                  "const expectedName = pm.collectionVariables.get(\"updatedUserName\");",
-                  "const expectedEmail = pm.collectionVariables.get(\"updatedUserEmail\");",
-                  "const expectedNickName = pm.collectionVariables.get(\"updatedUserNickName\");",
-                  "",
-                  "pm.test(\"Updated user can be retrieved\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Retrieved user contains the updated values\", function () {",
-                  "    const jsonData = pm.response.json();",
-                  "",
-                  "    pm.expect(String(jsonData.id)).to.eql(String(expectedId));",
-                  "    pm.expect(jsonData.name).to.eql(expectedName);",
-                  "    pm.expect(jsonData.email).to.eql(expectedEmail);",
-                  "    pm.expect(jsonData.nickName).to.eql(expectedNickName);",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "packages": {},
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+              "name": "GET - Verify PUT User",
+              "event": [
                 {
-                  "key": "token",
-                  "value": "{{accessToken}}",
-                  "type": "string"
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const expectedId = pm.collectionVariables.get(\"updatedUserId\");",
+                      "const expectedName = pm.collectionVariables.get(\"updatedUserName\");",
+                      "const expectedEmail = pm.collectionVariables.get(\"updatedUserEmail\");",
+                      "const expectedNickName = pm.collectionVariables.get(\"updatedUserNickName\");",
+                      "",
+                      "pm.test(\"Updated user can be retrieved\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "",
+                      "pm.test(\"Retrieved user contains the updated values\", function () {",
+                      "    const jsonData = pm.response.json();",
+                      "",
+                      "    pm.expect(String(jsonData.id)).to.eql(String(expectedId));",
+                      "    pm.expect(jsonData.name).to.eql(expectedName);",
+                      "    pm.expect(jsonData.email).to.eql(expectedEmail);",
+                      "    pm.expect(jsonData.nickName).to.eql(expectedNickName);",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "packages": {},
+                    "type": "text/javascript"
+                  }
                 }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{api-test}}/users/{{updatedUserId}}",
-              "host": [
-                "{{api-test}}"
               ],
-              "path": [
-                "users",
-                "{{updatedUserId}}"
-              ]
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{api-test}}/users/{{updatedUserId}}",
+                  "host": [
+                    "{{api-test}}"
+                  ],
+                  "path": [
+                    "users",
+                    "{{updatedUserId}}"
+                  ]
+                }
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
         },
         {
-          "name": "GET {{baseUrl}}/users/{{deletedUserId}}",
-          "event": [
+          "name": "07.3 - Verify DELETE",
+          "item": [
             {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "const deletedUserId =",
-                  "    pm.collectionVariables.get(\"deletedUserId\");",
-                  "",
-                  "pm.test(`Deleted user ${deletedUserId} can no longer be retrieved`, function () {",
-                  "    pm.response.to.have.status(404);",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+              "name": "GET - Verify DELETE User",
+              "event": [
                 {
-                  "key": "token",
-                  "value": "{{accessToken}}",
-                  "type": "string"
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const deletedUserId =",
+                      "    pm.collectionVariables.get(\"deletedUserId\");",
+                      "",
+                      "pm.test(\"Deleted user can no longer be retrieved\", function () {",
+                      "    pm.response.to.have.status(404);",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
                 }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{api-test}}/users/{{deletedUserId}}",
-              "host": [
-                "{{api-test}}"
               ],
-              "path": [
-                "users",
-                "{{deletedUserId}}"
-              ]
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{api-test}}/users/{{deletedUserId}}",
+                  "host": [
+                    "{{api-test}}"
+                  ],
+                  "path": [
+                    "users",
+                    "{{deletedUserId}}"
+                  ]
+                }
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
         }
       ]
     },
