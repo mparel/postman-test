@@ -13,3 +13,6 @@
     npm run test:get-user-by-id => (GET /user by id)
     npm run test:delete-users => (DELETE /user by id)
     npm run test => (run all tests)
+
+Reference Test Cases:
+https://docs.google.com/spreadsheets/d/1O57lkJGNVEXY-lL4XGtP7A9mmBYRx6chiGKWMPCVXBk/edit?gid=12907500#gid=12907500
