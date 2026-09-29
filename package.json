@@ -1,10 +1,17 @@
 {
   "name": "postman-test",
   "version": "1.0.0",
-  "description": "A repo for Postman collections and environment files",
+  "private": true,
+  "description": "Postman API automated test suites executed with Newman",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./scripts/run-tests.sh all",
+    "test:auth": "./scripts/run-tests.sh auth",
+    "test:get-users": "./scripts/run-tests.sh get-users",
+    "test:post-users": "./scripts/run-tests.sh post-users",
+    "test:put-users": "./scripts/run-tests.sh put-users",
+    "test:get-user-by-id": "./scripts/run-tests.sh get-user-by-id",
+    "test:delete-users": "./scripts/run-tests.sh delete-users"
   },
   "repository": {
     "type": "git",
