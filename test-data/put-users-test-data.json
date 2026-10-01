@@ -88,5 +88,73 @@
     "expectedStatus": 200,
     "alternativeExpectedStatus": 204,
     "validationType": "successfulUpdate"
-  }
+  },
+  {
+    "testCaseId": "TC09",
+    "scenario": "Update user without required name field",
+    "category": "Negative",
+    "bodyType": "missingName",
+    "id": 1,
+    "email": "john@example.com",
+    "nickName": "John",
+    "expectedStatus": 400,
+    "validationType": "validationError"
+},
+{
+    "testCaseId": "TC10",
+    "scenario": "Update user without required email field",
+    "category": "Negative",
+    "bodyType": "missingEmail",
+    "id": 1,
+    "name": "John Doe",
+    "nickName": "John",
+    "expectedStatus": 400,
+    "validationType": "validationError"
+},
+{
+    "testCaseId": "TC11",
+    "scenario": "Update user without required name and email fields",
+    "category": "Negative",
+    "bodyType": "missingRequiredFields",
+    "id": 1,
+    "nickName": "John",
+    "expectedStatus": 400,
+    "validationType": "validationError"
+},
+{
+    "testCaseId": "TC12",
+    "scenario": "Update user with empty required name field",
+    "category": "Negative",
+    "bodyType": "emptyName",
+    "id": 1,
+    "name": "",
+    "email": "john@example.com",
+    "nickName": "John",
+    "expectedStatus": 400,
+    "validationType": "validationError"
+},
+{
+    "testCaseId": "TC13",
+    "scenario": "Update user with empty required email field",
+    "category": "Negative",
+    "bodyType": "emptyEmail",
+    "id": 1,
+    "name": "John Doe",
+    "email": "",
+    "nickName": "John",
+    "expectedStatus": 400,
+    "validationType": "validationError"
+},
+{
+    "testCaseId": "TC14",
+    "scenario": "Update user without optional nickName field",
+    "category": "Happy-path",
+    "bodyType": "missingNickName",
+    "id": 1,
+    "name": "John Doe",
+    "email": "john@example.com",
+    "expectedStatus": 200,
+    "alternativeExpectedStatus": 204,
+    "validationType": "successfulUpdate"
+}
 ]
